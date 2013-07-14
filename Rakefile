@@ -81,6 +81,7 @@ def install_oh_my_zsh
     when 'y'
       if !File.exists?("/bin/zsh")
         puts "✱ Installing zsh"
+        `echo '/bin/zsh' | sudo tee -a /etc/shells`
         `sudo apt-get install zsh`
       end
       `curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh`
@@ -97,7 +98,6 @@ def install_oh_my_zsh
       #   elsif distribution.include? "Suse"
       #     system %Q{sudo zypper install zsh | yes}
       #   end
-      end
     when 'q'
       exit
     else
