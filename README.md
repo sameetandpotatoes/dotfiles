@@ -8,5 +8,5 @@ Set Up
 =======
 
 1. `git clone https://github.com/sameetandpotatoes/dotfiles.git`
-2. `cd ~/dotfiles`
+2. `cd dotfiles`
 3. `rake install`
