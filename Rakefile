@@ -79,19 +79,24 @@ def install_oh_my_zsh
     print "install oh-my-zsh? [ynq] "
     case $stdin.gets.chomp
     when 'y'
-      puts "installing oh-my-zsh"
-      string = system %Q{uname}
-      if string = Darwin
-        system %Q{git clone https://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"}
-      elsif string = Linux
-        distribution = system %Q{cat /etc/issue}
-        if distribution.include? "Debian"
-          system %Q{sudo apt-get install zsh | yes}
-        elsif distribution.include? "Red Hat"
-          system %Q{sudo yum install zsh | yes}
-        elsif distribution.include? "Suse"
-          system %Q{sudo zypper install zsh | yes}
-        end
+      if !File.exists?("/bin/zsh")
+        puts "✱ Installing zsh"
+        `sudo apt-get install zsh`
+      end
+      `curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh`
+      # puts "installing oh-my-zsh"
+      # string = system %Q{uname}
+      # if string = Darwin
+      #   system %Q{git clone https://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"}
+      # elsif string = Linux
+      #   distribution = system %Q{cat /etc/issue}
+      #   if distribution.include? "Debian"
+      #     system %Q{sudo apt-get install zsh | yes}
+      #   elsif distribution.include? "Red Hat"
+      #     system %Q{sudo yum install zsh | yes}
+      #   elsif distribution.include? "Suse"
+      #     system %Q{sudo zypper install zsh | yes}
+      #   end
       end
     when 'q'
       exit
