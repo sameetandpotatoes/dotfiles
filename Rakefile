@@ -84,9 +84,14 @@ def install_oh_my_zsh
       if string = Darwin
         system %Q{git clone https://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"}
       elsif string = Linux
-        system %Q{sudo apt-get install zsh}
-        system %Q{sudo yum install zsh}
-        system %Q{sudo zypper install zsh}
+        distribution = system %Q{cat /etc/issue}
+        if distribution.include? "Debian"
+          system %Q{sudo apt-get install zsh | yes}
+        elsif distribution.include? "Red Hat"
+          system %Q{sudo yum install zsh | yes}
+        elsif distribution.include? "Suse"
+          system %Q{sudo zypper install zsh | yes}
+        end
       end
     when 'q'
       exit
