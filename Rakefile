@@ -80,7 +80,13 @@ def install_oh_my_zsh
     case $stdin.gets.chomp
     when 'y'
       puts "installing oh-my-zsh"
-      system %Q{git clone https://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"}
+      string = system %Q{uname}
+      if string = Darwin
+        system %Q{git clone https://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"}
+      elsif string = Linux
+        system %Q(sudo apt-get install zsh)
+        system %Q(sudo yum install zsh)
+        system %Q(sudo zypper install zsh)
     when 'q'
       exit
     else
