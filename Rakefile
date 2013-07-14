@@ -63,7 +63,7 @@ def switch_to_zsh
     case $stdin.gets.chomp
     when 'y'
       puts "switching to zsh"
-      system %Q{chsh -s $(which zsh)}
+      system system %Q{chsh -s `which zsh`}
     when 'q'
       exit
     else
@@ -80,24 +80,16 @@ def install_oh_my_zsh
     case $stdin.gets.chomp
     when 'y'
       if !File.exists?("/bin/zsh")
-        puts "✱ Installing zsh"
-        `echo '/bin/zsh' | sudo tee -a /etc/shells`
-        `sudo apt-get install zsh`
+        puts "Installing zsh"
+        if `uname` == "Linux"
+          `sudo apt-get install zsh | yes`
+          `sudo apt-get install git-core | yes`
+          `sudo apt-get install wget | yes`
+          `wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh`
+        else
+        `curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh`
+        end
       end
-      `curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh`
-      # puts "installing oh-my-zsh"
-      # string = system %Q{uname}
-      # if string = Darwin
-      #   system %Q{git clone https://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"}
-      # elsif string = Linux
-      #   distribution = system %Q{cat /etc/issue}
-      #   if distribution.include? "Debian"
-      #     system %Q{sudo apt-get install zsh | yes}
-      #   elsif distribution.include? "Red Hat"
-      #     system %Q{sudo yum install zsh | yes}
-      #   elsif distribution.include? "Suse"
-      #     system %Q{sudo zypper install zsh | yes}
-      #   end
     when 'q'
       exit
     else
