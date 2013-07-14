@@ -63,7 +63,7 @@ def switch_to_zsh
     case $stdin.gets.chomp
     when 'y'
       puts "switching to zsh"
-      system system %Q{chsh -s `which zsh`}
+      system("chsh -s `which zsh`")
     when 'q'
       exit
     else
@@ -82,12 +82,12 @@ def install_oh_my_zsh
       if !File.exists?("/bin/zsh")
         puts "Installing zsh"
         if `uname` == "Linux"
-          `sudo apt-get install zsh | yes`
-          `sudo apt-get install git-core | yes`
-          `sudo apt-get install wget | yes`
-          `wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh`
+          system("sudo apt-get install zsh | yes")
+          #system("sudo apt-get install git-core | yes`
+          system("sudo apt-get install wget | yes")
+          system("wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh")
         else
-        `curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh`
+          system("curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh")
         end
       end
     when 'q'
