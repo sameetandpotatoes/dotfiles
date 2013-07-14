@@ -64,6 +64,7 @@ def switch_to_zsh
     when 'y'
       puts "switching to zsh"
       `chsh -s /bin/zsh`
+      `chsh -s /usr/bin/zsh`
     when 'q'
       exit
     else
