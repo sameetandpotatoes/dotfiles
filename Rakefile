@@ -6,7 +6,7 @@ task :install do
   install_oh_my_zsh
   switch_to_zsh
   replace_all = false
-  files = Dir['*'] - %w[Rakefile README.rdoc LICENSE oh-my-zsh]
+  files = Dir['*'] - %w[Rakefile README.rdoc LICENSE]
   files << "oh-my-zsh/themes/agnoster.zsh-theme"
   files.each do |file|
     system %Q{mkdir -p "$HOME/.#{File.dirname(file)}"} if file =~ /\//
@@ -46,7 +46,7 @@ def link_file(file)
     File.open(File.join(ENV['HOME'], ".#{file.sub(/\.erb$/, '')}"), 'w') do |new_file|
       new_file.write ERB.new(File.read(file)).result(binding)
     end
-  elsif file =~ /zshrc$/ # copy zshrc instead of link
+elsif file =~ /zshrc$/ # copy zshrc instead of link
     puts "copying ~/.#{file}"
     system %Q{cp "$PWD/#{file}" "$HOME/.#{file}"}
   else
@@ -81,15 +81,13 @@ def install_oh_my_zsh
     when 'y'
       if !File.exists?("/bin/zsh")
         puts "Installing zsh"
-        os = sh %{uname}
-        if os == "Linux"
           sh %{sudo apt-get update}
           sh %{sudo apt-get install upgrade}
           sh %{sudo apt-get install zsh}
-        else
-          sh %{curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh}
-        end
-        sh %{cp -r oh-my-zsh $HOME/.oh-my-zsh}
+        
+          #sh %{curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh}
+          
+          sh %{cp -r oh-my-zsh $HOME/.oh-my-zsh}
       end
     when 'q'
       exit
