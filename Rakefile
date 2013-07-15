@@ -84,12 +84,12 @@ def install_oh_my_zsh
         puts "Installing zsh"
         if `uname` == "Linux"
           sh "sudo apt-get update"
+          sh "sudo apt-get install libpcre3"
+          sh "sudo apt-get install zsh-doc"
           sh "sudo apt-get install zsh"
-          #`sudo apt-get install libpcre3`
-          #{}`sudo apt-get install zsh-doc`
-          #{}`sudo apt-get install zsh`
-          #{}`sudo apt-get install wget`
-          #{}`wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh`
+          #sh "sudo apt-get install zsh"
+          sh "sudo apt-get install wget"
+          sh "wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O | sh"
         else
           `curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh`
         end
