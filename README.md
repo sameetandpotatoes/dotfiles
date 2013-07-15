@@ -8,11 +8,17 @@ Pre-Requisities
 ===========
 
 1. Install Git
-    Linux: `sudo apt-get install git`
-    Mac OS: `brew install git`
-      If you need to install brew, use this ruby command: `ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"`
+    
+    For Linux: `sudo apt-get install git`
+
+    For Mac OS: `brew install git`
+        
+    If you need to install brew, use this ruby command: `ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"`
+        
 2. Install Rake
+    
     Linux: `sudo apt-get install rake`
+    
     Mac OS: `brew install rake`
 
 Set Up
