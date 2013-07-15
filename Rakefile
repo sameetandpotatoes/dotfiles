@@ -81,12 +81,35 @@ def install_oh_my_zsh
     when 'y'
       if !File.exists?("/bin/zsh")
         puts "Installing zsh"
-          sh %{sudo apt-get update}
-          sh %{sudo apt-get install upgrade}
-          sh %{sudo apt-get install zsh}
-        
-          #sh %{curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh}
-          
+          distribution = sh %{sh GetDistro.sh}
+          if (distribution.includes? "Debian")
+            sh %{sudo apt-get install python-pip}
+            sh %{sudo apt-get update}
+            sh %{sudo apt-get upgrade}
+            sh %{sudo apt-get install zsh}
+            sh %{sudo apt-get install wget}
+          elsif distribution.includes? "Red Hat"
+            sh %{sudo yum update}
+            sh %{sudo yum upgrade}
+            sh %{sudo yum install python-pip}
+            sh %{sudo yum install zsh}
+            sh %{sudo yum install wget}
+          elsif distribution.includes? "SUSE"
+            sh %{sudo zypper update}
+            sh %{sudo zypper upgrade}
+            sh %{sudo zypper install python-pip}
+            sh %{sudo zypper install zsh}
+            sh %{sudo zypper install wget}
+          else #Mac OS X
+            sh %{curl -L github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh}
+          end
+          puts "Installing a powerline font for use with agnoster zsh theme"
+          sh %{su -c 'pip install git+git://github.com/Lokaltog/powerline'}
+          sh %{wget https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf}
+          sh %{sudo mv PowerlineSymbols.otf /usr/share/fonts/}
+          sh %{sudo fc-cache -vf}
+          sh %{sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/}
+
           sh %{cp -r oh-my-zsh $HOME/.oh-my-zsh}
       end
     when 'q'
