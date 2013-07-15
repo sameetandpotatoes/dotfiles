@@ -63,7 +63,7 @@ def switch_to_zsh
     case $stdin.gets.chomp
     when 'y'
       puts "switching to zsh"
-      `chsh -s /bin/zsh`
+      #`chsh -s /bin/zsh`
       `chsh -s /usr/bin/zsh`
     when 'q'
       exit
@@ -83,11 +83,13 @@ def install_oh_my_zsh
       if !File.exists?("/bin/zsh")
         puts "Installing zsh"
         if `uname` == "Linux"
-          `sudo apt-get install libpcre3`
-          `sudo apt-get install zsh-doc`
-          `sudo apt-get install zsh`
-          `sudo apt-get install wget`
-          `wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh`
+          sh "sudo apt-get update"
+          sh "sudo apt-get install zsh"
+          #`sudo apt-get install libpcre3`
+          #{}`sudo apt-get install zsh-doc`
+          #{}`sudo apt-get install zsh`
+          #{}`sudo apt-get install wget`
+          #{}`wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh`
         else
           `curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh`
         end
