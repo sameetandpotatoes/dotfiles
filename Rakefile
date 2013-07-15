@@ -83,7 +83,8 @@ def install_oh_my_zsh
       if !File.exists?("/bin/zsh")
         puts "Installing zsh"
         if `uname` == "Linux"
-          system("sudo apt-get install zsh | yes")
+          `sudo apt-get install libpcre3`
+          `sudo apt-get install zsh-doc`
           `sudo apt-get install zsh`
           `sudo apt-get install wget`
           `wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh`
