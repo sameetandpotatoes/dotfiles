@@ -93,6 +93,7 @@ def install_oh_my_zsh
         #else
           #sh %{curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh}
         #end
+        #sh %{cp oh-my-zsh $HOME/.oh-my-zsh}
       end
     when 'q'
       exit
