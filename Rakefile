@@ -81,7 +81,8 @@ def install_oh_my_zsh
     when 'y'
       if !File.exists?("/bin/zsh")
         puts "Installing zsh"
-        if `uname` == "Linux"
+        os = sh %{uname}
+        if os == "Linux"
           sh %{sudo apt-get update}
           sh %{sudo apt-get install libpcre3}
           sh %{sudo apt-get install zsh-doc}
