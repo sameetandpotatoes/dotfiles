@@ -82,19 +82,19 @@ def install_oh_my_zsh
       if !File.exists?("/bin/zsh")
         puts "Installing zsh"
           distribution = sh %{sh GetDistro.sh}
-          if (distribution.includes? "Debian")
+          if (distribution.include? "Debian")
             sh %{sudo apt-get install python-pip}
             sh %{sudo apt-get update}
             sh %{sudo apt-get upgrade}
             sh %{sudo apt-get install zsh}
             sh %{sudo apt-get install wget}
-          elsif distribution.includes? "Red Hat"
+          elsif distribution.include? "Red Hat"
             sh %{sudo yum update}
             sh %{sudo yum upgrade}
             sh %{sudo yum install python-pip}
             sh %{sudo yum install zsh}
             sh %{sudo yum install wget}
-          elsif distribution.includes? "SUSE"
+          elsif distribution.include? "SUSE"
             sh %{sudo zypper update}
             sh %{sudo zypper upgrade}
             sh %{sudo zypper install python-pip}
