@@ -82,18 +82,14 @@ def install_oh_my_zsh
       if !File.exists?("/bin/zsh")
         puts "Installing zsh"
         os = sh %{uname}
-        #if os == "Linux"
+        if os == "Linux"
           sh %{sudo apt-get update}
-          sh %{sudo apt-get install libpcre3}
-          sh %{sudo apt-get install zsh-doc}
+          sh %{sudo apt-get install upgrade}
           sh %{sudo apt-get install zsh}
-          sh %{sudo apt-get install wget}
-          sh %{sudo apt-get install curl}
-          #sh "wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O | sh"
-        #else
-          #sh %{curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh}
-        #end
-        #sh %{cp oh-my-zsh $HOME/.oh-my-zsh}
+        else
+          sh %{curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh}
+        end
+        sh %{cp -r oh-my-zsh $HOME/.oh-my-zsh}
       end
     when 'q'
       exit
