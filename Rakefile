@@ -33,6 +33,7 @@ task :install do
       link_file(file)
     end
   end
+  echo "Please restart Terminal or open a new Terminal to see your effects."
 end
 
 def replace_file(file)
@@ -79,33 +80,30 @@ def install_oh_my_zsh
     print "install oh-my-zsh? [ynq] "
     case $stdin.gets.chomp
     when 'y'
-      if !File.exists?("/bin/zsh")
+      if !File.exists?("usr/bin/zsh")
         puts "Installing zsh"
           distribution = sh %{sh GetDistro.sh}
           if (distribution.include? "Debian")
-            sh %{sudo apt-get install python-pip}
-            sh %{sudo apt-get update}
-            sh %{sudo apt-get upgrade}
-            sh %{sudo apt-get install zsh}
-            sh %{sudo apt-get install wget}
+            sh %{sudo apt-get update && echo 'y' > /dev/null}
+            sh %{sudo apt-get install python-pip && echo 'y' > /dev/null}
+            sh %{sudo apt-get install zsh && echo 'y' > /dev/null}
+            sh %{sudo apt-get install wget && echo 'y' > /dev/null}
           elsif distribution.include? "Red Hat"
-            sh %{sudo yum update}
-            sh %{sudo yum upgrade}
-            sh %{sudo yum install python-pip}
-            sh %{sudo yum install zsh}
-            sh %{sudo yum install wget}
+            sh %{sudo yum update && echo 'y' > /dev/null}
+            sh %{sudo yum install python-pip && echo 'y' > /dev/null}
+            sh %{sudo yum install zsh && echo 'y' > /dev/null}
+            sh %{sudo yum install wget && echo 'y' > /dev/null}
           elsif distribution.include? "SUSE"
-            sh %{sudo zypper update}
-            sh %{sudo zypper upgrade}
-            sh %{sudo zypper install python-pip}
-            sh %{sudo zypper install zsh}
-            sh %{sudo zypper install wget}
+            sh %{sudo zypper update && echo 'y' > /dev/null}
+            sh %{sudo zypper install python-pip && echo 'y' > /dev/null}
+            sh %{sudo zypper install zsh && echo 'y' > /dev/null}
+            sh %{sudo zypper install wget && echo 'y' > /dev/null}
           else #Mac OS X
-            sh %{curl -L github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh}
+            sh %{curl -L github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh > /dev/null}
           end
           puts "Installing a powerline font for use with agnoster zsh theme"
           sh %{su -c 'pip install git+git://github.com/Lokaltog/powerline'}
-          sh %{wget https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf}
+          sh %{wget https://github.com/Lokaltog/powerline/raw/develop/font/PowerlineSymbols.otf https://github.com/Lokaltog/powerline/raw/develop/font/10-powerline-symbols.conf > /dev/null}
           sh %{sudo mv PowerlineSymbols.otf /usr/share/fonts/}
           sh %{sudo fc-cache -vf}
           sh %{sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/}
