@@ -83,7 +83,7 @@ def install_oh_my_zsh
       if !File.exists?("usr/bin/zsh")
         puts "Installing zsh"
           out="sh GetDistro.sh"
-          distribution = out
+          distribution = $out
           if distribution.include? "Debian"
             sh %{sudo apt-get update && echo 'y' > /dev/null}
             sh %{sudo apt-get install python-pip && echo 'y' > /dev/null}
