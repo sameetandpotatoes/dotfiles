@@ -33,7 +33,7 @@ task :install do
       link_file(file)
     end
   end
-  echo "Please restart Terminal or open a new Terminal to see your effects."
+  print "Please restart Terminal or open a new Terminal to see your effects."
 end
 
 def replace_file(file)
@@ -64,7 +64,7 @@ def switch_to_zsh
     case $stdin.gets.chomp
     when 'y'
       puts "switching to zsh"
-      sh "chsh -s $(which zsh)" 
+      sh "chsh -s $(which zsh)"
     when 'q'
       exit
     else
