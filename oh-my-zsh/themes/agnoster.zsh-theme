@@ -21,13 +21,24 @@
 # hostname to whether the last call exited with an error to whether background
 # jobs are running in this shell will all be displayed automatically when
 # appropriate.
- 
+
 ### Segment drawing
 # A few utility functions to make it easy and re-usable to draw segmented prompts
- 
+
 CURRENT_BG='NONE'
 SEGMENT_SEPARATOR='⮀'
- 
+
+zmodload zsh/datetime # For EPOCHREALTIME.
+
+last_run_time=0
+last_start_time='invalid'
+last_command=''
+last_status=0
+ZSH_THEME_COMMAND_TIME_THRESHOLD=0.0
+ZSH_THEME_COMMAND_TIME_PREFIX=""
+ZSH_THEME_COMMAND_TIME_SUFFIX=""
+
+
 # Begin a segment
 # Takes two arguments, background and foreground. Both can be omitted,
 # rendering default background/foreground.
@@ -43,7 +54,7 @@ prompt_segment() {
   CURRENT_BG=$1
   [[ -n $3 ]] && echo -n $3
 }
- 
+
 # End the prompt, closing any open segments
 prompt_end() {
   if [[ -n $CURRENT_BG ]]; then
@@ -53,20 +64,27 @@ prompt_end() {
   fi
   echo -n "%{%f%}"
   CURRENT_BG=''
+
+  success_color "$(command_time)"
 }
- 
+
+function success_color()
+{
+  echo -n "%(?.%{$fg[green]%}.%{$fg[red]%})$argv%{$reset_color%}"
+}
+
 ### Prompt components
 # Each component will draw itself, and hide itself if no information needs to be shown
- 
+
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
   local user=`whoami`
- 
+
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
    # prompt_segment black default "%(!.%{%F{yellow}%}.)$user@%m"
   fi
 }
- 
+
 # Git: branch/detached head, dirty status
 prompt_git() {
   local ref dirty
@@ -82,12 +100,12 @@ prompt_git() {
     echo -n "${ref/refs\/heads\//⭠ }$dirty"
   fi
 }
- 
+
 # Dir: current working directory
 prompt_dir() {
-  prompt_segment blue black '%~'
+  prompt_segment blue black '%2d'
 }
- 
+
 # Status:
 # - was there an error
 # - am I root
@@ -98,10 +116,54 @@ prompt_status() {
   [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
- 
+
   [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
 }
- 
+
+
+function command_time() {
+  if (( last_run_time > ZSH_THEME_COMMAND_TIME_THRESHOLD ))
+  then
+    echo -n $ZSH_THEME_COMMAND_TIME_PREFIX
+    time_to_human $last_run_time
+    echo -n $ZSH_THEME_COMMAND_TIME_SUFFIX
+  fi
+}
+
+function time_to_human() {
+    seconds=$1
+    if (( seconds < 10 )); then
+      printf "%6.3fs" $seconds
+    elif (( seconds < 60 )); then
+      printf "%6.3fs" $seconds
+    elif (( seconds < (60*60) )); then
+      printf "%6.3fm" $(( seconds / 60 ))
+    elif (( seconds < (60*60*24) )); then
+      printf "%6.3fh" $(( seconds / (60*60) ))
+    else
+      printf "%6.3fd" $(( seconds / (60*60*24) ))
+    fi
+}
+
+# Executed right before a command is executed.
+function preexec() {
+  last_start_time=$EPOCHREALTIME
+  last_command=$1
+}
+
+# Executed right after a command completes.
+function precmd() {
+  exit_status=$?
+  # We do these invalid shenanigans because zsh executes precmd but not preexec
+  # if an empty line is entered.
+  if [[ $last_start_time != 'invalid' ]]; then
+    last_status=$exit_status
+    last_run_time=$((EPOCHREALTIME - last_start_time))
+
+    last_start_time='invalid'
+  fi
+}
+
 ## Main prompt
 build_prompt() {
   RETVAL=$?
@@ -111,5 +173,5 @@ build_prompt() {
   prompt_git
   prompt_end
 }
- 
+
 PROMPT='%{%f%b%k%}$(build_prompt) '
