@@ -117,3 +117,6 @@ def install_oh_my_zsh
     end
   end
 end
+task:uninstall do
+
+end
