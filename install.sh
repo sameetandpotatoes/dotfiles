@@ -55,6 +55,11 @@ function install_zsh
             install_zsh
             exit
     fi
+    #copy powerline font
+    echo "Copying theme"
+    cp ~/dotfiles/powerline.zsh-theme ~/.oh-my-zsh/themes/
+
+    echo "Please open a new Terminal window to see the effects"
 fi
 }
 install_zsh
