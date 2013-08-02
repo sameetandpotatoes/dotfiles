@@ -3,24 +3,30 @@ ZSH_THEME="powerline"
 
 ####################### My Aliases #######################
 
+######## Navigation Aliases ########
 alias ls="ls -a"
 alias ..="cd .."
 alias ...="cd .. ; cd .."
 alias ....="cd .. ; cd ..; cd .."
+
+####### GitHub Aliases ############
 alias gi="git init"
 alias gp="git push origin master"
 alias gs="git status"
+
+####### Server Aliases ############
 alias wakeserver="~/bin/wakeonlan -f ServerMACAddress.txt"
 alias sshserver="ssh sameet@192.168.1.200"
+
+####### Rails Aliases ############
+alias rs="rails server"
+####### Miscellaneous ############
+alias reload="source ~/.zshrc"
 
 function chpwd()
 {
 	emulate -L zsh
  	ls -a
-}
-function java()
-{
-	javac "$@".java && java "$@";
 }
 ####################### End Aliases ######################
 
