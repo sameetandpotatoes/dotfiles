@@ -18,17 +18,21 @@ alias gs="git status"
 alias wakeserver="~/bin/wakeonlan -f ServerMACAddress.txt"
 alias sshserver="ssh sameet@192.168.1.200"
 
-####### Rails Aliases ############
+####### Rails Aliases #############
 alias rs="rails server"
-####### Miscellaneous ############
+####### Miscellaneous #############
 alias reload="source ~/.zshrc"
+
+
+####### Finder Aliases ############
+alias showfinder="defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder"
+alias hidefinder="defaults write com.apple.finder AppleShowAllFiles FALSE; killall Finder"
 
 function chpwd()
 {
 	emulate -L zsh
  	ls -a
 }
-####################### End Aliases ######################
 
 CASE_SENSITIVE="true"
 # DISABLE_AUTO_UPDATE="true"
