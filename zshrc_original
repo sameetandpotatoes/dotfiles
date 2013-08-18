@@ -15,11 +15,12 @@ alias gp="git push origin master"
 alias gs="git status"
 
 ####### Server Aliases ############
-alias wakeserver="cd ; ~/bin/wakeonlan -f ServerMACAddress.txt"
+alias wakeserver="~/bin/wakeonlan -f ServerMACAddress.txt"
 alias sshserver="ssh sameet@192.168.1.200"
 
 ####### Rails Aliases #############
 alias rs="rails server"
+alias railsmigrate="bundle exec rake db:migrate"
 ####### Miscellaneous #############
 alias reload="source ~/.zshrc"
 
