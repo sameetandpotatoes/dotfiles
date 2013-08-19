@@ -30,6 +30,7 @@ alias rake="bundle exec rake"
 alias reload="source ~/.zshrc"
 alias untar="tar -xvvf"
 alias subl="sublime ."
+alias biggest='find -type f -printf '\''%s %p\n'\'' | sort -nr | head -n 40 | gawk "{ print \$1/1000000 \" \" \$2 \" \" \$3 \" \" \$4 \" \" \$5 \" \" \$6 \" \" \$7 \" \" \$8 \" \" \$9 }"' #Sorts biggest list of files under current directory
 ####### Finder Aliases ############
 alias showfinder="defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder"
 alias hidefinder="defaults write com.apple.finder AppleShowAllFiles FALSE; killall Finder"
