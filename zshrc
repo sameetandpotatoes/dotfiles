@@ -5,9 +5,6 @@ ZSH_THEME="powerline"
 ######## Navigation Aliases ########
 alias ls="ls -aG"
 alias ll='ls -la'
-alias l1='tree --dirsfirst -ChFL 1'
-alias l2='tree --dirsfirst -ChFL 2'
-alias l3='tree --dirsfirst -ChFL 3'
 alias ..="cd .."
 alias ...="cd .. ; cd .."
 alias ....="cd .. ; cd ..; cd .."
