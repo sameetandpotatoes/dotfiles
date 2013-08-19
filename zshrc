@@ -2,36 +2,55 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="powerline"
 
 ####################### My Aliases #######################
-alias subl="sublime ."
 ######## Navigation Aliases ########
 alias ls="ls -aG"
+alias ll='ls -la'
+alias l1='tree --dirsfirst -ChFL 1'
+alias l2='tree --dirsfirst -ChFL 2'
+alias l3='tree --dirsfirst -ChFL 3'
 alias ..="cd .."
 alias ...="cd .. ; cd .."
 alias ....="cd .. ; cd ..; cd .."
 
-####### GitHub Aliases ############
+######## Git Aliases ##############
 alias gi="git init"
-alias gp="git push origin master"
+alias push="git push origin master"
+alias hpush="git push heroku master"
+alias pull="git pull origin master"
 alias gs="git status"
 
-####### Server Aliases ############
+######## Server Aliases ###########
 alias wakeserver="cd ; ~/bin/wakeonlan -f ServerMACAddress.txt"
 alias sshserver="ssh sameet@192.168.1.200"
 
-####### Rails Aliases #############
-alias rs="rails server"
-####### Miscellaneous #############
-alias reload="source ~/.zshrc"
+######## Rails Aliases ###########
+alias rs="rails s"
+alias rc="rails c"
+alias migrate="rake db:migrate"
+alias rake="bundle exec rake"
 
+######## Miscellaneous ###########
+alias reload="source ~/.zshrc"
+alias untar="tar -xvvf"
+alias subl="sublime ."
 ####### Finder Aliases ############
 alias showfinder="defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder"
 alias hidefinder="defaults write com.apple.finder AppleShowAllFiles FALSE; killall Finder"
+
+####### Output Aliases ############
+
+# use at the end of a command, ex: ls -la COUNT
+
+alias -g COUNT='| wc -l'
+alias -g NULL='2> /dev/null'
 
 function chpwd()
 {
 	emulate -L zsh
  	ls -aG
 }
+
+####################### End Aliases ######################
 
 CASE_SENSITIVE="true"
 # DISABLE_AUTO_UPDATE="true"

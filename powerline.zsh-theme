@@ -92,7 +92,7 @@ ZSH_THEME_GIT_PROMPT_DIVERGED=" ⬍"
         POWERLINE_GIT_INFO_RIGHT=""
     else
         POWERLINE_GIT_INFO_LEFT=""
-        POWERLINE_GIT_INFO_RIGHT="%F{cyan}"$'\ue0b2'"%F{black}%K{cyan}"$'$(git_prompt_info)'" %K{cyan}"
+        POWERLINE_GIT_INFO_RIGHT="%F{green}"$'\ue0b2'"%F{black}%K{green}"$'$(git_prompt_info)'" %K{green}"
     fi
 # fi
 
@@ -119,8 +119,8 @@ fi
 
 if [ "$POWERLINE_DISABLE_RPROMPT" = "" ]; then
     if [ "$POWERLINE_RIGHT_A" = "" ]; then
-        RPROMPT="$POWERLINE_GIT_INFO_RIGHT%F{cyan}"$'\ue0b2'"%k%F{black}%K{cyan} $POWERLINE_RIGHT_B %f%k"
+        RPROMPT="$POWERLINE_GIT_INFO_RIGHT%F{green}"$'\ue0b2'"%k%F{black}%K{green} $POWERLINE_RIGHT_B %f%k"
     else
-          RPROMPT="$POWERLINE_GIT_INFO_RIGHT%F{white}"$''"%k%F{black}%K{white} $POWERLINE_RIGHT_B %f%F{white}"$''"%f%k%K{white}%F{black} $POWERLINE_RIGHT_A %f%k"
+          RPROMPT="$POWERLINE_GIT_INFO_RIGHT%F{white}"$%k%F{black}%K{white}$POWERLINE_RIGHT_B{white}$%K{white}%F{black} $POWERLINE_RIGHT_A %f%k"
     fi
 fi
