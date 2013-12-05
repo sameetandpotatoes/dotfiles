@@ -8,16 +8,17 @@ alias ll='ls -la'
 alias ..="cd .."
 alias ...="cd .. ; cd .."
 alias ....="cd .. ; cd ..; cd .."
-
+alias p="cd ~/Sameet/Programming"
+alias web="cd ~/Sameet/Programming/WebDev"
 ######## Git Aliases ##############
 alias gi="git init"
 alias push="git push origin master"
-alias hpush="git push heroku master"
+alias hpush="bundle exec rake assets:precompile ; git push heroku master"
 alias pull="git pull origin master"
 alias gs="git status"
 
 ######## Server Aliases ###########
-alias wakeserver="cd ; ~/bin/wakeonlan -f ServerMACAddress.txt"
+alias wakeserver="cd ; ~/bin/wakeonlan -f ServerMACAddress.txt ; cd -;"
 alias sshserver="ssh sameet@192.168.1.200"
 
 ######## Rails Aliases ###########
