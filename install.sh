@@ -8,7 +8,7 @@
 
 dir=~/dotfiles # dotfiles directory
 olddir=~/dotfiles_old # old dotfiles backup directory
-files="vimrc vim zshrc gvimrc" # list of files/folders to symlink in homedir
+files="vimrc vim zshrc" # list of files/folders to symlink in homedir
 
 ##########
 
@@ -60,7 +60,7 @@ function install_zsh
     echo "Copying theme"
     cp ~/dotfiles/powerline.zsh-theme ~/.oh-my-zsh/themes/
 
-    echo "Please open a new Terminal window to see the effects"
+    echo "Please open a new Terminal window to see the effects."
 fi
 }
 install_zsh

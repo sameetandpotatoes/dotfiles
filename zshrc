@@ -13,7 +13,7 @@ alias web="cd ~/Sameet/Programming/WebDev"
 ######## Git Aliases ##############
 alias gi="git init"
 alias push="git push origin master"
-alias hpush="bundle exec rake assets:precompile ; git push heroku master"
+alias hpush="git push heroku master"
 alias pull="git pull origin master"
 alias gs="git status"
 
@@ -26,7 +26,6 @@ alias rs="rails s"
 alias rc="rails c"
 alias migrate="rake db:migrate"
 alias rake="bundle exec rake"
-
 ######## Miscellaneous ###########
 alias reload="source ~/.zshrc"
 alias untar="tar -xvvf"
@@ -43,6 +42,9 @@ alias hidefinder="defaults write com.apple.finder AppleShowAllFiles FALSE; killa
 alias -g COUNT='| wc -l'
 alias -g NULL='2> /dev/null'
 
+###### nmap Aliases ########
+alias scanNetwork="nmap -sP 192.168.1.*"
+alias scanPorts="nmap --open 192.168.1.200"
 function chpwd()
 {
 	emulate -L zsh
@@ -62,7 +64,7 @@ export PATH=$PATH:/usr/local/heroku/bin:/Users/ssapra/.rvm/gems/ruby-2.0.0-p247/
 
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 ####################### Heroku #######################
 export PATH="/usr/local/heroku/bin:$PATH"
 export PGHOST=localhost
