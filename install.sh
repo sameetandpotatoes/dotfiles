@@ -60,7 +60,7 @@ function install_zsh
     echo "Copying theme"
     cp ~/dotfiles/powerline.zsh-theme ~/.oh-my-zsh/themes/
 
-    echo "Please open a new Terminal window to see the effects"
+    echo "Please open a new Terminal window to see the effects."
 fi
 }
 install_zsh
