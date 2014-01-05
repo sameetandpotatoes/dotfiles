@@ -42,6 +42,9 @@ alias hidefinder="defaults write com.apple.finder AppleShowAllFiles FALSE; killa
 alias -g COUNT='| wc -l'
 alias -g NULL='2> /dev/null'
 
+###### nmap Aliases ########
+alias scanNetwork="nmap -sP 192.168.1.*"
+alias scanPorts="nmap --open 192.168.1.200"
 function chpwd()
 {
 	emulate -L zsh
