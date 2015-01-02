@@ -3,37 +3,34 @@ ZSH_THEME="powerline"
 
 ####################### My Aliases #######################
 ######## Navigation Aliases ########
+alias dev="cd ~/Documents/Copy/Programming/"
+alias ttt="cd ~/Documents/Copy/Programming/web/TopTierTraveling"
 alias ls="ls -aG"
 alias ll='ls -la'
 alias ..="cd .."
 alias ...="cd .. ; cd .."
 alias ....="cd .. ; cd ..; cd .."
-alias p="cd ~/Sameet/Programming"
-alias web="cd ~/Sameet/Programming/WebDev"
 ######## Git Aliases ##############
 alias gi="git init"
 alias push="git push origin master"
 alias hpush="git push heroku master"
 alias pull="git pull origin master"
 alias gs="git status"
-
+alias log="git log --oneline --decorate --graph --all"
 ######## Server Aliases ###########
 alias wakeserver="cd ; ~/bin/wakeonlan -f ServerMACAddress.txt ; cd -;"
-alias sshserver="ssh sameet@192.168.1.200"
-alias iTunes="open -a iTunes"
 ######## Rails Aliases ###########
 alias rs="rails s"
 alias rc="rails c"
 alias migrate="rake db:migrate"
 alias rake="bundle exec rake"
-alias ucrs="pkill -9 rails ; pkill -9 redis ; pkill -9 redis ; pkill -9 redis ; foreman start -f Procfile.dev"
+alias killrs='num=$(cat tmp/pids/server.pid); kill -INT $num;'
 ######## Node.JS Aliases
 alias fs="foreman start"
 ######## Miscellaneous ###########
 alias reload="source ~/.zshrc"
 alias untar="tar -xvvf"
 alias biggest='find -type f -printf '\''%s %p\n'\'' | sort -nr | head -n 40 | gawk "{ print \$1/1000000 \" \" \$2 \" \" \$3 \" \" \$4 \" \" \$5 \" \" \$6 \" \" \$7 \" \" \$8 \" \" \$9 }"' #Sorts biggest list of files under current directory
-alias airport='/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport'
 ####### Finder Aliases ############
 alias showfinder="defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder"
 alias hidefinder="defaults write com.apple.finder AppleShowAllFiles FALSE; killall Finder"
@@ -72,3 +69,5 @@ export ZSH_TMUX_AUTOCONNECT=true
 export ZSH_TMUX_FIXTERM_WITH_256COLOR=true
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
