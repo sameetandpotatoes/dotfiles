@@ -1,11 +1,15 @@
+set nocompatible
+
 execute pathogen#infect()
 call pathogen#helptags()
 
-syntax on
-filetype plugin indent on
 syntax enable
 set background=dark
+"let g:solarized_visibility = "high"
+"let g:solarized_contrast = "high"
 colorscheme solarized
+
+syntax on
 
 autocmd vimenter * if !argc() | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
