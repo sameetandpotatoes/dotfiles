@@ -39,3 +39,5 @@ Thumbs.db
 # RubyMine's .idea #
 ####################
 .idea
+
+*.un~
