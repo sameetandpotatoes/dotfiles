@@ -13,54 +13,51 @@ files="vimrc vim zshrc" # list of files/folders to symlink in homedir
 ##########
 
 # create dotfiles_old in homedir
-echo -n "Creating $olddir for backup of any existing dotfiles in ~ ..."
+echo -n "Creating $olddir to backup existing dotfiles first"
 mkdir -p $olddir
-echo "done"
 
-# change to the dotfiles directory
-echo -n "Changing to the $dir directory ..."
+# cd to dotfiles
 cd $dir
-echo "done"
 
-# move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
+# move any existing dotfiles in homedir to dotfiles_old directory
 for file in $files; do
-echo "Moving any existing dotfiles from ~ to $olddir"
-    mv ~/.$file ~/dotfiles_old/
-    echo "Creating symlink to $file in home directory."
-    ln -s $dir/$file ~/.$file
+		echo -n "Moving any existing dotfiles from ~ to $olddir"
+		mv ~/.$file ~/dotfiles_old/
+		# create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
+		echo -n "Creating symlink to $file in home directory."
+		ln -s $dir/$file ~/.$file
 done
 
 function install_zsh
 {
-    # Test to see if zshell is installed. If it is:
-    if [ -f /bin/zsh -o -f /usr/bin/zsh ]; then
-        # Clone my oh-my-zsh repository from GitHub only if it isn't already present
-        if [[ ! -d $dir/oh-my-zsh/ ]]; then
-             git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-        fi
-        # Set the default shell to zsh if it isn't currently set to zsh
-        if [[ ! $(echo $SHELL) == $(which zsh) ]]; then
-            chsh -s $(which zsh)
-        fi
-    else
-        # If zsh isn't installed, get the platform of the current machine
-        platform=$(uname);
-        # If the platform is Linux, try an apt-get to install zsh and then recurse
-        if [[ $platform == 'Linux' ]]; then
-            sudo apt-get install zsh
-            install_zsh
-        # If the platform is OS X, run brew
-        elif [[ $platform == 'Darwin' ]]; then
-            brew install zsh
-            git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-            install_zsh
-            exit
-    fi
-    #copy powerline font
-    echo "Copying theme"
-    cp ~/dotfiles/powerline.zsh-theme ~/.oh-my-zsh/themes/
-
-    echo "Please open a new Terminal window to see the effects."
-fi
+		# Check if zsh was installed already
+		if [ -f /bin/zsh -o -f /usr/bin/zsh ]; then
+				# Clone my oh-my-zsh repository from GitHub only if it isn't already present
+				if [[ ! -d $dir/oh-my-zsh/ ]]; then
+						 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+				fi
+				# Set the default shell to zsh if it isn't currently set to zsh
+				if [[ ! $(echo $SHELL) == $(which zsh) ]]; then
+						echo -n "Setting default shell to zsh. Please enter your password when you are prompted."
+						sudo chsh $USER -s $(which zsh)
+				fi
+		else
+				# Figure out of Linux or OS X
+				platform=$(uname);
+				# If Linux, use apt-get
+				if [[ $platform == 'Linux' ]]; then
+						sudo apt-get install zsh
+				# If OS X, use brew
+				elif [[ $platform == 'Darwin' ]]; then
+						brew install zsh
+				fi
+				echo -n "Installed zsh!"
+				# Recall this method
+				install_zsh
+		fi
+		echo -n "Copying powerline theme"
+		cp ~/dotfiles/powerline.zsh-theme ~/.oh-my-zsh/themes/
+		echo -n "Please open a new Terminal window to see the effects."
 }
+
 install_zsh

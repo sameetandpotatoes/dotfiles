@@ -17,15 +17,13 @@ alias hpush="git push heroku master"
 alias pull="git pull origin master"
 alias gs="git status"
 alias log="git log --oneline --decorate --graph --all"
-alias postg="'/Applications/Postgres.app/Contents/Versions/9.4/bin'/psql -p5432"
-######## Server Aliases ###########
-alias wakeserver="cd ; ~/bin/wakeonlan -f ServerMACAddress.txt ; cd -;"
 ######## Rails Aliases ###########
 alias rs="rails s"
 alias rc="rails c"
 alias migrate="rake db:migrate"
 alias rake="bundle exec rake"
 alias killrs='num=$(cat tmp/pids/server.pid); kill -INT $num;'
+alias postg="'/Applications/Postgres.app/Contents/Versions/9.4/bin'/psql -p5432"
 ######## Node.JS Aliases #########
 alias fs="foreman start"
 ######## Python Aliases ###########
@@ -61,10 +59,6 @@ alias hidefinder="defaults write com.apple.finder AppleShowAllFiles FALSE; killa
 alias -g COUNT='| wc -l'
 alias -g NULL='2> /dev/null'
 
-###### nmap Aliases ########
-alias scanNetwork="nmap -sP 192.168.1.*"
-alias scanPorts="nmap --open 192.168.1.200"
-
 function chpwd()
 {
 	emulate -L zsh
@@ -88,9 +82,5 @@ export PGHOST=localhost
 export ZSH_TMUX_AUTOSTART=true
 export ZSH_TMUX_AUTOCONNECT=true
 export ZSH_TMUX_FIXTERM_WITH_256COLOR=true
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
-
-source /usr/local/bin/virtualenvwrapper.sh
