@@ -1,4 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
-let g:netrw_dirhist_1='/Users/ssapra/dotfiles/vim'
-let g:netrw_dirhist_2='/Users/ssapra/dotfiles'
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/Users/ssapra/Documents/ssapra/College/Freshman/cs225/ssapra2/lab_heaps'
+let g:netrw_dirhist_2='/Users/ssapra/Documents/ssapra/Programming/sigir/swocker'
+let g:netrw_dirhist_3='/Users/ssapra/Documents/ssapra/Programming/sigir/searchengine'

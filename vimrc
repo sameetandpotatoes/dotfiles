@@ -1,16 +1,37 @@
-set nocompatible
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+call pathogen#infect()
 
-execute pathogen#infect()
-call pathogen#helptags()
-
+filetype plugin indent on
 syntax enable
-set background=dark
-"let g:solarized_visibility = "high"
-"let g:solarized_contrast = "high"
-colorscheme solarized
+set number
+set cursorline
 
-syntax on
+set hlsearch
+set incsearch
+nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 
-autocmd vimenter * if !argc() | NERDTree | endif
-map <C-n> :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+set backspace=2
+
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+
+let mapleader=","
+
+noremap <Leader>n :NERDTreeToggle<CR>
+
+autocmd FileType ruby setlocal shiftwidth=2 softtabstop=2
+autocmd FileType eruby setlocal shiftwidth=2 softtabstop=2
+autocmd FileType jade setlocal shiftwidth=2 softtabstop=2
+
+" For CS 233
+autocmd FileType asm setlocal softtabstop=0 noexpandtab
+
+command Markdown new | set ft=html | execute 'r !~/.vim/Markdown.pl ' . shellescape(expand('#')) | 1d
+command Trigraphs %s/#/??=/ge | %s/\\/??\//ge | %s/\^/??'/ge | %s/\[/??(/ge | %s/\]/??)/ge | %s/|/??!/ge | %s/{/??</ge | %s/}/??>/ge | %s/\~/??-/ge
+
+" Statusline and colorscheme
+let g:airline_powerline_fonts = 1
+set laststatus=2
+set t_Co=256
+
