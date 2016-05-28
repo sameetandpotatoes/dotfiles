@@ -6,9 +6,9 @@ Script that sets up zsh and my iTerm customizations
 Preview
 ========
 **Terminal Prompt (Modified powerline.zsh-theme)**
-![ScreenShot](https://drive.google.com/file/d/0B8ua5fEvjT-ecGRzNjlfWHZjaHc/view?usp=sharing)
+![ScreenShot](https://drive.google.com/uc?export=view&id=0B8ua5fEvjT-ecGRzNjlfWHZjaHc)
 **Vim Color Scheme**
-![ScreenShot](https://drive.google.com/open?id=0B8ua5fEvjT-eMnFPa2VrTHZBT00)
+![ScreenShot](https://drive.google.com/uc?export=view&id=0B8ua5fEvjT-eMnFPa2VrTHZBT00)
 Features:
  - Displays current working directory (last two directories)
  - Displays Git branch status
