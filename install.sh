@@ -39,14 +39,14 @@ function install_zsh
 				# Set the default shell to zsh if it isn't currently set to zsh
 				if [[ ! $(echo $SHELL) == $(which zsh) ]]; then
 						echo -n "Setting default shell to zsh. Please enter your password when you are prompted."
-						sudo chsh $USER -s $(which zsh)
+						sudo chsh $USER -s $(which zsh)	# TODO for some reason this doesn't work either
 				fi
 		else
 				# Figure out of Linux or OS X
 				platform=$(uname);
 				# If Linux, use apt-get
 				if [[ $platform == 'Linux' ]]; then
-						sudo apt-get install zsh
+						sudo apt-get install zsh	# TODO don't think this works
 				# If OS X, use brew
 				elif [[ $platform == 'Darwin' ]]; then
 						brew install zsh
@@ -57,7 +57,9 @@ function install_zsh
 		fi
 		echo -n "Copying powerline theme"
 		cp ~/dotfiles/powerline.zsh-theme ~/.oh-my-zsh/themes/
-		echo -n "Please open a new Terminal window to see the effects."
+		echo -n "Copy the below line to set the default shell to zsh"
+		echo -n "sudo chsh $USER -s $(which zsh)"
+		echo -n "After setting the font to Meslo LG or Hack, open a new Terminal window to see the effects"
 }
 
 install_zsh

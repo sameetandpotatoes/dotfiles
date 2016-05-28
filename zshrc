@@ -41,8 +41,6 @@ export cs233=$HOME/Documents/ssapra/College/Freshman/cs233/ssapra2
 alias  work="ssh -R 52698:localhost:52698 ssapra2@bilbo.cs.illinois.edu"
 export DEV=$HOME/Documents/ssapra/Programming
 alias dev="cd $DEV"
-alias cs225="cd $cs225"
-alias cs233="cd $cs233"
 ######## Miscellaneous ###########
 alias reload="source ~/.zshrc"
 alias untar="tar -xvvf"
