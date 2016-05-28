@@ -9,12 +9,13 @@ Preview
 ![ScreenShot](https://drive.google.com/uc?export=view&id=0B8ua5fEvjT-ecGRzNjlfWHZjaHc)
 **Vim Color Scheme**
 ![ScreenShot](https://drive.google.com/uc?export=view&id=0B8ua5fEvjT-eMnFPa2VrTHZBT00)
+
 Features:
  - Displays current working directory (last two directories)
  - Displays Git branch status
  - Displays status code of previous command and time
 
- Note: All of the above features (including colors) can be configured within the zsh theme, if you choose to do so.
+Note: All of the above features (including colors) can be configured within the zsh theme, if you choose to do so.
 
 Set Up
 ========
