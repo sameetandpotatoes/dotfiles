@@ -1,55 +1,36 @@
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="powerline"
 
-####################### My Aliases #######################
-######## Navigation Aliases ########
 alias ls="ls -aG"
 alias ll='ls -la'
 alias ..="cd .."
 alias ...="cd .. ; cd .."
 alias ....="cd .. ; cd ..; cd .."
-######## Git Aliases ##############
-alias gi="git init"
+
 alias push="git push origin master"
 alias hpush="git push heroku master"
 alias pull="git pull origin master"
 alias gs="git status"
 alias ss="svn status"
 alias gl="git log --oneline --decorate --graph --all"
-######## Rails Aliases ###########
+
 alias rs="rails s"
 alias rc="rails c"
-alias migrate="rake db:migrate"
-alias rake="bundle exec rake"
-alias killrs='num=$(cat tmp/pids/server.pid); kill -INT $num;'
-alias postg="'/Applications/Postgres.app/Contents/Versions/9.4/bin'/psql -p5432"
-######## Node.JS Aliases #########
-alias fs="foreman start"
-######## Python Aliases ###########
-alias wo='workon'
-alias pf='pip freeze | sort'
-
-alias drs="python manage.py runserver"
-alias dsh="python manage.py shell"
-alias dmm="python manage.py makemigrations"
-alias dm="python manage.py migrate"
+alias killrs='num=$(cat tmp/pids/server.pid); kill -9 $num;'
 
 alias ngrok="cd /Applications; ./ngrok"
 alias buildresume="xelatex Resume.tex  > /dev/null; open Resume.pdf;"
-export cs225=$HOME/Documents/ssapra/College/Freshman/cs225/ssapra2
-export cs233=$HOME/Documents/ssapra/College/Freshman/cs233/ssapra2
-alias  work="ssh -R 52698:localhost:52698 ssapra2@bilbo.cs.illinois.edu"
+alias work="ssh -R 52698:localhost:52698 ssapra2@bilbo.cs.illinois.edu"
 export DEV=$HOME/Documents/ssapra/Programming
 alias dev="cd $DEV"
-######## Miscellaneous ###########
+
 alias reload="source ~/.zshrc"
-alias untar="tar -xvvf"
+alias untar="tar -xvzf"
 alias biggest='find -type f -printf '\''%s %p\n'\'' | sort -nr | head -n 40 | gawk "{ print \$1/1000000 \" \" \$2 \" \" \$3 \" \" \$4 \" \" \$5 \" \" \$6 \" \" \$7 \" \" \$8 \" \" \$9 }"' #Sorts biggest list of files under current directory
-####### Finder Aliases ############
+
 alias showfinder="defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder"
 alias hidefinder="defaults write com.apple.finder AppleShowAllFiles FALSE; killall Finder"
 
-####### Output Aliases ############
 
 # use at the end of a command, ex: ls -la COUNT
 alias -g COUNT='| wc -l'
@@ -67,7 +48,21 @@ function chpwd()
  	ls -aG
 }
 
-####################### End Aliases ######################
+cat() {
+    local out colored
+    out=$(/bin/cat $@)
+    colored=$(echo $out | pygmentize -f console -g 2>/dev/null)
+    [[ -n $colored ]] && echo "$colored" || echo "$out"
+}
+
+cdf() {
+    target=`osascript -e 'tell application "Finder" to if (count of Finder windows) > 0 then get POSIX path of (target of front Finder window as text)'`
+    if [ "$target" != "" ]; then
+        cd "$target"; pwd
+    else
+        echo 'No Finder window found' >&2
+    fi
+}
 
 ZSH_POWERLINE_SHOW_USER="false"
 ZSH_POWERLINE_SHOW_IP="false"
@@ -102,3 +97,5 @@ export NVM_DIR="/Users/ssapra/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 source /usr/local/bin/virtualenvwrapper.sh
 source /sw2/bin/init.sh
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
