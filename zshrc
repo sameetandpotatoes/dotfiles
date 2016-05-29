@@ -6,7 +6,12 @@ alias ll='ls -la'
 alias ..="cd .."
 alias ...="cd .. ; cd .."
 alias ....="cd .. ; cd ..; cd .."
+<<<<<<< HEAD
 
+=======
+######## Git Aliases ##############
+alias gi="git init"
+>>>>>>> b5b3927f7fdf24dd9f1c822ba66f8f31f2ea273c
 alias push="git push origin master"
 alias hpush="git push heroku master"
 alias pull="git pull origin master"
@@ -70,6 +75,12 @@ ZSH_POWERLINE_SINGLE_LINE="true"
 ZSH_POWERLINE_SHOW_OS="false"
 ZSH_POWERLINE_DIRECTORY_DEPTH="3"
 
+ZSH_POWERLINE_SHOW_USER="false"
+ZSH_POWERLINE_SHOW_IP="false"
+ZSH_POWERLINE_SINGLE_LINE="true"
+ZSH_POWERLINE_SHOW_OS="false"
+ZSH_POWERLINE_DIRECTORY_DEPTH="3"
+
 CASE_SENSITIVE="true"
 DISABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
@@ -97,5 +108,8 @@ export NVM_DIR="/Users/ssapra/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 source /usr/local/bin/virtualenvwrapper.sh
 source /sw2/bin/init.sh
+<<<<<<< HEAD
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+=======
+>>>>>>> b5b3927f7fdf24dd9f1c822ba66f8f31f2ea273c
