@@ -1,17 +1,17 @@
 ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="powerline"
+ZSH_THEME="agnoster"
+setopt auto_cd
+setopt prompt_subst
+setopt histignoredups
 
 alias ls="ls -aG"
 alias ll='ls -la'
 alias ..="cd .."
 alias ...="cd .. ; cd .."
 alias ....="cd .. ; cd ..; cd .."
-<<<<<<< HEAD
 
-=======
 ######## Git Aliases ##############
 alias gi="git init"
->>>>>>> b5b3927f7fdf24dd9f1c822ba66f8f31f2ea273c
 alias push="git push origin master"
 alias hpush="git push heroku master"
 alias pull="git pull origin master"
@@ -108,8 +108,4 @@ export NVM_DIR="/Users/ssapra/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 source /usr/local/bin/virtualenvwrapper.sh
 source /sw2/bin/init.sh
-<<<<<<< HEAD
-
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-=======
->>>>>>> b5b3927f7fdf24dd9f1c822ba66f8f31f2ea273c

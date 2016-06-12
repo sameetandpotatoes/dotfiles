@@ -1,164 +1,204 @@
-[[ -n "${OS}" ]] || OS=$(uname)
+# vim:ft=zsh ts=2 sw=2 sts=2
+#
+# agnoster's Theme - https://gist.github.com/3712874
+# A Powerline-inspired theme for ZSH
+#
+# # README
+#
+# In order for this theme to render correctly, you will need a
+# [Powerline-patched font](https://github.com/Lokaltog/powerline-fonts).
+# Make sure you have a recent version: the code points that Powerline
+# uses changed in 2012, and older versions will display incorrectly,
+# in confusing ways.
+#
+# In addition, I recommend the
+# [Solarized theme](https://github.com/altercation/solarized/) and, if you're
+# using it on Mac OS X, [iTerm 2](http://www.iterm2.com/) over Terminal.app -
+# it has significantly better color fidelity.
+#
+# # Goals
+#
+# The aim of this theme is to only show you *relevant* information. Like most
+# prompts, it will only show git information when in a git working directory.
+# However, it goes a step further: everything from the current user and
+# hostname to whether the last call exited with an error to whether background
+# jobs are running in this shell will all be displayed automatically when
+# appropriate.
 
-# background color
-BG_COLOR_BASE03=%K{8}
-BG_COLOR_BASE02=%K{0}
-BG_COLOR_BASE01=%K{10}
-BG_COLOR_BASE00=%K{11}
-BG_COLOR_BASE0=%K{12}
-BG_COLOR_BASE1=%K{14}
-BG_COLOR_BASE2=%K{7}
-BG_COLOR_BASE3=%K{15}
-BG_COLOR_YELLOW=%K{3}
-BG_COLOR_ORANGE=%K{1}
-BG_COLOR_RED=%K{9}
-BG_COLOR_MAGENTA=%K{5}
-BG_COLOR_VIOLET=%K{13}
-BG_COLOR_BLUE=%K{4}
-BG_COLOR_CYAN=%K{6}
-BG_COLOR_GREEN=%K{2}
+### Segment drawing
+# A few utility functions to make it easy and re-usable to draw segmented prompts
 
-# foreground color
-FG_COLOR_BASE03=%F{8}
-FG_COLOR_BASE02=%F{0}
-FG_COLOR_BASE01=%F{10}
-FG_COLOR_BASE00=%F{11}
-FG_COLOR_BASE0=%F{12}
-FG_COLOR_BASE1=%F{14}
-FG_COLOR_BASE2=%F{7}
-FG_COLOR_BASE3=%F{15}
-FG_COLOR_YELLOW=%F{3}
-FG_COLOR_ORANGE=%F{1}
-FG_COLOR_RED=%F{9}
-FG_COLOR_MAGENTA=%F{5}
-FG_COLOR_VIOLET=%F{13}
-FG_COLOR_BLUE=%F{4}
-FG_COLOR_CYAN=%F{6}
-FG_COLOR_GREEN=%F{2}
+CURRENT_BG='NONE'
 
-# reset color
-local RESET_COLOR=%f%k%b
-local RESET=%{$RESET_COLOR%}
-local RETURN_CODE="%(?..$FG_COLOR_RED%? ↵$RESET)"
-local ARROW_SYMBOL=''
-local ZSH_TIME=%D{%L:%M:%S_%p}
-local PADDING=''
+# Special Powerline characters
 
-if [ $OS = "Darwin" ]; then
-	local LOGO=""
-else
-	local LOGO="🐧"
-fi
+() {
+  local LC_ALL="" LC_CTYPE="en_US.UTF-8"
+  # NOTE: This segment separator character is correct.  In 2012, Powerline changed
+  # the code points they use for their special characters. This is the new code point.
+  # If this is not working for you, you probably have an old version of the
+  # Powerline-patched fonts installed. Download and install the new version.
+  # Do not submit PRs to change this unless you have reviewed the Powerline code point
+  # history and have new information.
+  # This is defined using a Unicode escape sequence so it is unambiguously readable, regardless of
+  # what font the user is viewing this source code in. Do not replace the
+  # escape sequence with a single literal character.
+  # Do not change this! Do not make it '\u2b80'; that is the old, wrong code point.
+  SEGMENT_SEPARATOR=$'\ue0b0'
+}
 
-GIT_DIRTY_COLOR=%F{196}
-GIT_CLEAN_COLOR=%F{118}
-GIT_PROMPT_INFO=%F{012}
+# Begin a segment
+# Takes two arguments, background and foreground. Both can be omitted,
+# rendering default background/foreground.
+prompt_segment() {
+  local bg fg
+  [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
+  [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
+  if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
+    echo -n " %{$bg%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%} "
+  else
+    echo -n "%{$bg%}%{$fg%} "
+  fi
+  CURRENT_BG=$1
+  [[ -n $3 ]] && echo -n $3
+}
 
-ZSH_THEME_GIT_PROMPT_PREFIX="  "
-ZSH_THEME_GIT_PROMPT_SUFFIX="$GIT_PROMPT_INFO"
-ZSH_THEME_GIT_PROMPT_DIRTY=" $GIT_DIRTY_COLOR✘"
-ZSH_THEME_GIT_PROMPT_CLEAN=" $GIT_CLEAN_COLOR✔"
+# End the prompt, closing any open segments
+prompt_end() {
+  if [[ -n $CURRENT_BG ]]; then
+    echo -n " %{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
+  else
+    echo -n "%{%k%}"
+  fi
+  echo -n "%{%f%}"
+  CURRENT_BG=''
+}
 
-ZSH_THEME_GIT_PROMPT_ADDED="%F{082}✚%f"
-ZSH_THEME_GIT_PROMPT_MODIFIED="%F{166}✹%f"
-ZSH_THEME_GIT_PROMPT_DELETED="%F{160}✖%f"
-ZSH_THEME_GIT_PROMPT_RENAMED="%F{220]➜%f"
-ZSH_THEME_GIT_PROMPT_UNMERGED="%F{082]═%f"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%F{190]✭%f"
+### Prompt components
+# Each component will draw itself, and hide itself if no information needs to be shown
 
-# option defaults
-[[ -n "$ZSH_POWERLINE_SHOW_USER" ]]             || ZSH_POWERLINE_SHOW_USER=true
-[[ -n "$ZSH_POWERLINE_SHOW_IP" ]]               || ZSH_POWERLINE_SHOW_IP=true
-[[ -n "$ZSH_POWERLINE_SHOW_OS" ]]               || ZSH_POWERLINE_SHOW_OS=true
-[[ -n "$ZSH_POWERLINE_SHOW_TIME" ]]             || ZSH_POWERLINE_SHOW_TIME=false
-[[ -n "$ZSH_POWERLINE_SINGLE_LINE" ]]           || ZSH_POWERLINE_SINGLE_LINE=false
-[[ -n "$ZSH_POWERLINE_SHOW_GIT_STATUS" ]]       || ZSH_POWERLINE_SHOW_GIT_STATUS=true
-[[ -n "$ZSH_POWERLINE_SHOW_GIT_BRANCH_ONLY" ]]  || ZSH_POWERLINE_SHOW_GIT_BRANCH_ONLY=false
-[[ -n "$ZSH_POWERLINE_SHOW_RETURN_CODE" ]]      || ZSH_POWERLINE_SHOW_RETURN_CODE=true
-[[ -n "$ZSH_POWERLINE_DIRECTORY_DEPTH" ]]       || ZSH_POWERLINE_DIRECTORY_DEPTH=2
+# Context: user@hostname (who am I and where am I)
+prompt_context() {
+  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+    prompt_segment white black "%(!.%{%F{yellow}%}.)$USER - %D{%L:%M:%S_%p}"
+  fi
+}
 
-# a new line before prompt
-PROMPT="
-"
-# username
-if [ $ZSH_POWERLINE_SHOW_USER = true ]; then
-	local USER="%n"
-    PROMPT="${PROMPT}${FG_COLOR_BLUE}${BG_COLOR_BASE3}${PADDING}${USER}"
-	PADDING=' '
-fi
+# Git: branch/detached head, dirty status
+prompt_git() {
 
-# hostname
-if [ $ZSH_POWERLINE_SHOW_IP = true ]; then
-    if [ "$(echo $IP | grep 200)" = "" ]; then
-    IP=`curl -si --max-time 2 http://ipecho.net/plain`
-        # no network connection, use hostname
-        IP="%m"
+  local PL_BRANCH_CHAR
+  () {
+    local LC_ALL="" LC_CTYPE="en_US.UTF-8"
+    PL_BRANCH_CHAR=$'\ue0a0'         # 
+  }
+  local ref dirty mode repo_path
+  repo_path=$(git rev-parse --git-dir 2>/dev/null)
+
+  if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
+    dirty=$(parse_git_dirty)
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
+    if [[ -n $dirty ]]; then
+      prompt_segment yellow black
     else
-        # replace dot by dash
-        IP=`echo -n $IP | tail -n 1 | sed "s/\./-/g"`
+      prompt_segment green black
     fi
-	if [ $ZSH_POWERLINE_SHOW_USER = true ]; then
-		PROMPT="${PROMPT}${FG_COLOR_GREEN}${BG_COLOR_BASE3} at"
-	fi
-    PROMPT="${PROMPT}${FG_COLOR_VIOLET}${BG_COLOR_BASE3}${PADDING}${IP}"
-	PADDING=' '
-fi
-# arrow symbol for username and ip/host
-if [ $ZSH_POWERLINE_SHOW_USER = true ] || [ $ZSH_POWERLINE_SHOW_IP = true ]; then
-	if [ $ZSH_POWERLINE_SHOW_TIME = true ]; then
-		PROMPT="${PROMPT} ${FG_COLOR_BASE3}${BG_COLOR_BASE03}${ARROW_SYMBOL}"
-	else
-		PROMPT="${PROMPT} ${FG_COLOR_BASE3}${BG_COLOR_BASE02}${ARROW_SYMBOL}"
-	fi
-fi
 
-# datetime
-if [ $ZSH_POWERLINE_SHOW_TIME = true ]; then
-	PROMPT="${PROMPT}${FG_COLOR_BASE3}${BG_COLOR_ORANGE}${PADDING} ${ZSH_TIME}"
-	PROMPT="${PROMPT} ${FG_COLOR_ORANGE}${BG_COLOR_BLUE}${ARROW_SYMBOL}"
-	PADDING=' '
-fi
+    if [[ -e "${repo_path}/BISECT_LOG" ]]; then
+      mode=" <B>"
+    elif [[ -e "${repo_path}/MERGE_HEAD" ]]; then
+      mode=" >M<"
+    elif [[ -e "${repo_path}/rebase" || -e "${repo_path}/rebase-apply" || -e "${repo_path}/rebase-merge" || -e "${repo_path}/../.dotest" ]]; then
+      mode=" >R>"
+    fi
 
-# OS logo
-if [ $ZSH_POWERLINE_SHOW_OS = true ]; then
-	PROMPT="${PROMPT}${FG_COLOR_BASE3}${BG_COLOR_BASE02}${PADDING}${LOGO}"
-	PADDING=' '
-fi
+    setopt promptsubst
+    autoload -Uz vcs_info
 
-# current directory (%E hightline all line to end)
-DIRECTORY_DEPTH="%${ZSH_POWERLINE_DIRECTORY_DEPTH}~"
-PROMPT="${PROMPT}${FG_COLOR_BASE3}${BG_COLOR_BLUE} ${DIRECTORY_DEPTH}"
+    zstyle ':vcs_info:*' enable git
+    zstyle ':vcs_info:*' get-revision true
+    zstyle ':vcs_info:*' check-for-changes true
+    zstyle ':vcs_info:*' stagedstr '✚'
+    zstyle ':vcs_info:*' unstagedstr '●'
+    zstyle ':vcs_info:*' formats ' %u%c'
+    zstyle ':vcs_info:*' actionformats ' %u%c'
+    vcs_info
+    echo -n "${ref/refs\/heads\//$PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode}"
+  fi
+}
 
-# add arrow
-PROMPT="${PROMPT} ${FG_COLOR_BLUE}${BG_COLOR_CYAN}${ARROW_SYMBOL}"
-PADDING=' '
+prompt_hg() {
+  local rev status
+  if $(hg id >/dev/null 2>&1); then
+    if $(hg prompt >/dev/null 2>&1); then
+      if [[ $(hg prompt "{status|unknown}") = "?" ]]; then
+        # if files are not added
+        prompt_segment red white
+        st='±'
+      elif [[ -n $(hg prompt "{status|modified}") ]]; then
+        # if any modification
+        prompt_segment yellow black
+        st='±'
+      else
+        # if working copy is clean
+        prompt_segment green black
+      fi
+      echo -n $(hg prompt "☿ {rev}@{branch}") $st
+    else
+      st=""
+      rev=$(hg id -n 2>/dev/null | sed 's/[^-0-9]//g')
+      branch=$(hg id -b 2>/dev/null)
+      if `hg st | grep -q "^\?"`; then
+        prompt_segment red black
+        st='±'
+      elif `hg st | grep -q "^[MA]"`; then
+        prompt_segment yellow black
+        st='±'
+      else
+        prompt_segment green black
+      fi
+      echo -n "☿ $rev@$branch" $st
+    fi
+  fi
+}
 
-# show git status
-if [ $ZSH_POWERLINE_SHOW_GIT_BRANCH_ONLY = true ]; then
-	# get git branch function
-	git_branch() {
-		git rev-parse --git-dir > /dev/null 2>&1
-		if [ "$?" = "0" ]; then
-			BRANCH=$(git branch | grep '*' | cut -d' ' -f2-)
-			echo ${ZSH_THEME_GIT_PROMPT_PREFIX}${BRANCH}
-		fi
-	}
-	PROMPT="${PROMPT}${FG_COLOR_BASE3}${BG_COLOR_CYAN}"'$(git_branch)'
-elif [ $ZSH_POWERLINE_SHOW_GIT_STATUS = true ]; then
-	PROMPT="${PROMPT}${FG_COLOR_BASE3}${BG_COLOR_CYAN}"'$(git_prompt_info)'
-fi
+# Dir: current working directory
+prompt_dir() {
+  prompt_segment blue black '%2~'
+}
 
-# single line or double lines
-if [ $ZSH_POWERLINE_SINGLE_LINE = false ]; then
-	PROMPT="${PROMPT} %E
-  ${RESET}${FG_COLOR_BASE02}${ARROW_SYMBOL}"
-else
-	PROMPT="${PROMPT} ${RESET}${FG_COLOR_CYAN}${ARROW_SYMBOL}"
-fi
+# Virtualenv: current working virtualenv
+prompt_virtualenv() {
+  local virtualenv_path="$VIRTUAL_ENV"
+  if [[ -n $virtualenv_path && -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
+    prompt_segment blue black "(`basename $virtualenv_path`)"
+  fi
+}
 
-# reset
-PROMPT="$PROMPT ${RESET} "
+# Status:
+# - was there an error
+# - am I root
+# - are there background jobs?
+prompt_status() {
+  local symbols
+  symbols=()
+  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
+  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
+  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
 
-if [ $ZSH_POWERLINE_SHOW_RETURN_CODE = true ]; then
-	RPROMPT="${RETURN_CODE}"
-fi
+  [[ -n "$symbols" ]] && prompt_segment white default "$symbols"
+}
+
+## Main prompt
+build_prompt() {
+  RETVAL=$?
+  prompt_status
+  prompt_virtualenv
+  prompt_context
+  prompt_dir
+  prompt_git
+  prompt_hg
+  prompt_end
+}
+
+PROMPT='%{%f%b%k%}$(build_prompt) '
