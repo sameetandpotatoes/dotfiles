@@ -1,5 +1,5 @@
 ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="agnoster"
+ZSH_THEME="powerline"
 setopt auto_cd
 setopt prompt_subst
 setopt histignoredups

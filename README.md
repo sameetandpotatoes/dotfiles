@@ -6,7 +6,7 @@ Script that sets up zsh and my iTerm customizations
 Preview
 ========
 **Terminal Prompt (Modified powerline.zsh-theme)**
-![ScreenShot](https://drive.google.com/uc?export=view&id=0B8ua5fEvjT-ecGRzNjlfWHZjaHc)
+![ScreenShot](https://drive.google.com/uc?export=view&id=0B8ua5fEvjT-eV0NPNVJqUFlkVUE)
 **Vim Color Scheme**
 ![ScreenShot](https://drive.google.com/uc?export=view&id=0B8ua5fEvjT-eMnFPa2VrTHZBT00)
 
