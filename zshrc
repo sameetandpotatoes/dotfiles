@@ -1,5 +1,5 @@
 ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="powerline"
+ZSH_THEME="avit"
 setopt auto_cd
 setopt prompt_subst
 setopt histignoredups
@@ -86,26 +86,10 @@ DISABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 plugins=(git ruby rails)
 
+export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+export PATH="$HOME/.rbenv/bin:$PATH" 
+eval "$(rbenv init -)"
+export GOPATH=$HOME/go
+. ~/z.sh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSH/oh-my-zsh.sh
-export PATH=$PATH:/usr/local/heroku/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/ssapra/.rvm/bin:/opt/local/bin
-PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
-export PATH="/usr/local/heroku/bin:$PATH"
-export PATH="/usr/local/Cellar/python/2.7.9/bin:$PATH"
-export GOPATH=$DEV/go
-export PATH=$PATH:$GOPATH/bin
-export PATH="/Users/ssapra/.rbenv/shims:${PATH}"
-export PATH=$PATH:/usr/local/mysql/bin/
-export PATH=$PATH:/usr/local/sbin
-export PGHOST=localhost
-export ZSH_TMUX_AUTOSTART=true
-export ZSH_TMUX_AUTOCONNECT=true
-export ZSH_TMUX_FIXTERM_WITH_256COLOR=true
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-export ANDROID_HOME="/Applications/android-sdk-macosx"
-
-export NVM_DIR="/Users/ssapra/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-source /usr/local/bin/virtualenvwrapper.sh
-source /sw2/bin/init.sh
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
