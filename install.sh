@@ -42,11 +42,11 @@ function install_zsh
 						sudo chsh $USER -s $(which zsh)	# TODO for some reason this doesn't work either
 				fi
 		else
-				# Figure out of Linux or OS X
+				# Figure out if Linux or OS X
 				platform=$(uname);
 				# If Linux, use apt-get
 				if [[ $platform == 'Linux' ]]; then
-						sudo apt-get install zsh	# TODO don't think this works
+						sudo apt install zsh	# TODO don't think this works
 				# If OS X, use brew
 				elif [[ $platform == 'Darwin' ]]; then
 						brew install zsh

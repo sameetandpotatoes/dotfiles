@@ -86,6 +86,7 @@ DISABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 plugins=(git ruby rails)
 
+if which java > /dev/null; then export JAVA_HOME=$(/usr/libexec/java_home); fi
 export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 export PATH="$HOME/.rbenv/bin:$PATH" 
 eval "$(rbenv init -)"
