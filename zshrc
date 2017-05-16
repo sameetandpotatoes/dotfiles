@@ -1,5 +1,5 @@
 ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="avit"
+ZSH_THEME="spaceship"
 setopt auto_cd
 setopt prompt_subst
 setopt histignoredups
