@@ -10,13 +10,6 @@ alias ..="cd .."
 alias ...="cd .. ; cd .."
 alias ....="cd .. ; cd ..; cd .."
 
-######## Git Aliases ##############
-alias push="git push origin master"
-alias hpush="git push heroku master"
-alias pull="git pull origin master"
-alias gs="git status"
-alias gl="git log --oneline --decorate --graph --all"
-
 alias rs="rails s"
 alias rc="rails c"
 
@@ -33,7 +26,7 @@ alias -g NULL='2> /dev/null'
 function gg() {
 	git add -u
 	git commit -a -m "$1"
-	git push
+    git push
 }
 
 function chpwd()
@@ -45,7 +38,7 @@ function chpwd()
 zsh_internet_signal(){
   #source on quality levels - http://www.wireless-nets.com/resources/tutorials/define_SNR_values.html
   #source on signal levels  - http://www.speedguide.net/faq/how-to-read-rssisignal-and-snrnoise-ratings-440
-	local signal=$(airport -I | grep agrCtlRSSI | awk '{print $2}' | sed 's/-//g')
+  local signal=$(airport -I | grep agrCtlRSSI | awk '{print $2}' | sed 's/-//g')
   local noise=$(airport -I | grep agrCtlNoise | awk '{print $2}' | sed 's/-//g')
   local SNR=$(bc <<<"scale=2; $signal / $noise")
 
@@ -101,10 +94,6 @@ POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
 POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
 POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
 POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
-
-# CASE_SENSITIVE="true"
-# DISABLE_CORRECTION="true"
-# COMPLETION_WAITING_DOTS="true"
 
 plugins=(git ruby rails z)
 
