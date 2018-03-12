@@ -52,11 +52,11 @@ function install_zsh
 				# Recall this method
 				install_zsh
 		fi
-		echo -n "Copying powerline theme"
+		echo -n "Copying theme\n"
 		cp ~/dotfiles/spaceship.zsh-theme ~/.oh-my-zsh/themes/
-		echo -n "Copy the below line to set the default shell to zsh"
-		echo -n "sudo chsh $USER -s $(which zsh)"
-		echo -n "After setting the font to Meslo LG or Hack, open a new window to see the effects"
+		echo -n "Copy the below line to set the default shell to zsh\n"
+		echo -n "chsh -s $(which zsh)"
+		echo -n "After setting the font to Meslo LG or Hack, open a new window to see the effects\n"
 }
 
 install_zsh

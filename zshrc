@@ -12,14 +12,7 @@ alias history='fc -il 1'
 alias shrug='echo "¯\_(ツ)_/¯"'
 export SHRUG='¯\_(ツ)_/¯'
 
-
-######## Git Aliases ##############
-alias push="git push origin master"
-alias hpush="git push heroku master"
-alias pull="git pull origin master"
-alias gs="git status"
-alias gl="git log --oneline --decorate --graph --all"
-
+alias gs="git s"
 alias rs="rails s"
 alias rc="rails c"
 
@@ -36,11 +29,10 @@ alias -g NULL='2> /dev/null'
 function gg() {
 	git add -u
 	git commit -a -m "$1"
-	git push
+    git push
 }
 
-function chpwd()
-{
+function chpwd() {
 	emulate -L zsh
  	ls -aG
 }
@@ -63,15 +55,9 @@ COMPLETION_WAITING_DOTS="true"
 
 plugins=(git ruby rails z)
 
-export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-export PATH="$HOME/.rbenv/bin:$PATH"
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 
-eval "$(rbenv init -)"
-
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-. ~/z.sh
 source $ZSH/oh-my-zsh.sh
 export PATH="/usr/local/opt/python@2/libexec/bin:$PATH"
 export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
