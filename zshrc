@@ -8,6 +8,10 @@ alias ll='ls -la'
 alias ..="cd .."
 alias ...="cd .. ; cd .."
 alias ....="cd .. ; cd ..; cd .."
+alias history='fc -il 1'
+alias shrug='echo "¯\_(ツ)_/¯"'
+export SHRUG='¯\_(ツ)_/¯'
+
 
 ######## Git Aliases ##############
 alias push="git push origin master"
@@ -60,7 +64,7 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(git ruby rails z)
 
 export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-export PATH="$HOME/.rbenv/bin:$PATH" 
+export PATH="$HOME/.rbenv/bin:$PATH"
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 
@@ -69,3 +73,8 @@ eval "$(rbenv init -)"
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 . ~/z.sh
 source $ZSH/oh-my-zsh.sh
+export PATH="/usr/local/opt/python@2/libexec/bin:$PATH"
+export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
+
+# added by travis gem
+[ -f /Users/ssapra/.travis/travis.sh ] && source /Users/ssapra/.travis/travis.sh
