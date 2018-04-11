@@ -1,0 +1,37 @@
+[alias]
+  a = add
+  aa = add .
+  ci = commit
+  cim = commit -m
+  com = checkout master
+  co = checkout
+  edit = !atom $(git status --short | awk '$1 ~ /^M|A|U/ {print $2}' ) # !$EDITOR $(git status --short | awk '$1 ~ /^M|A|U/ {print $2}' )
+  open = !$EDITOR $(git diff --name-only master..$(git rev-parse --abbrev-ref HEAD))
+  st = status
+  s  = status
+  b  = branch
+  br = branch
+  d  = diff
+  ds = diff --staged
+  ln = log --name-status
+  l  = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit -20
+  ll  = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
+  la = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit --all --graph
+  su = submodule update
+  cit = commit -m "temp" --no-verify
+  rbi = "!f() { git rebase -i HEAD~$1; }; f"
+  copm = "!f() { git co master && git pull; }; f"
+  fixup = "!f() { git aa && git ci --amend --no-edit --no-verify; }; f"
+  rb = pull --rebase origin master
+[user]
+	name = Sameet Sapra
+	email = sameetandpotatoes@gmail.com
+[color]
+	ui = auto
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[fetch]
+    prune = true
