@@ -10,7 +10,6 @@ alias ...="cd .. ; cd .."
 alias ....="cd .. ; cd ..; cd .."
 alias history='fc -il 1'
 alias shrug='echo "¯\_(ツ)_/¯"'
-export SHRUG='¯\_(ツ)_/¯'
 
 alias gs="git s"
 alias rs="rails s"
