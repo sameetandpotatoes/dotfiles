@@ -1,0 +1,17 @@
+[ui]
+username = Sameet Sapra <sameetandpotatoes@gmail.com>
+
+[extensions]
+color =
+fetch =
+graphlog =
+histedit =
+pager =
+progress =
+
+[alias]
+l = log -G --pager always --color always --template '\033[0;31m{node|short} \033[0;34m({author|person}) - \033[0;33m{tags} {bookmarks} {branches} \033[0m{desc|firstline|strip} \033[0;32m({date|age})\033[0m\n'
+st = !hg __mystatus $($HG root) $HG_ARGS
+
+[pager]
+pager = LESS='FRX' less
