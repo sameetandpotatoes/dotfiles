@@ -9,13 +9,10 @@ alias ..="cd .."
 alias ...="cd .. ; cd .."
 alias ....="cd .. ; cd ..; cd .."
 alias history='fc -il 1'
-alias shrug='echo "¯\_(ツ)_/¯"'
 
 alias gs="git s"
 alias rs="rails s"
 alias rc="rails c"
-
-alias ngrok="cd /Applications; ./ngrok"
 
 alias showfinder="defaults write com.apple.finder AppleShowAllFiles TRUE; killall Finder"
 alias hidefinder="defaults write com.apple.finder AppleShowAllFiles FALSE; killall Finder"
@@ -25,22 +22,10 @@ alias reload="source ~/.zshrc"
 alias -g COUNT='| wc -l'
 alias -g NULL='2> /dev/null'
 
-function gg() {
-	git add -u
-	git commit -a -m "$1"
-    git push
-}
-
 function chpwd() {
 	emulate -L zsh
  	ls -aG
 }
-
-ZSH_POWERLINE_SHOW_USER="false"
-ZSH_POWERLINE_SHOW_IP="false"
-ZSH_POWERLINE_SINGLE_LINE="true"
-ZSH_POWERLINE_SHOW_OS="false"
-ZSH_POWERLINE_DIRECTORY_DEPTH="3"
 
 ZSH_POWERLINE_SHOW_USER="false"
 ZSH_POWERLINE_SHOW_IP="false"

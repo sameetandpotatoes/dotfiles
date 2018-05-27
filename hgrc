@@ -1,5 +1,6 @@
 [ui]
 username = Sameet Sapra <sameetandpotatoes@gmail.com>
+merge=internal:merge
 
 [extensions]
 color =
@@ -8,10 +9,14 @@ graphlog =
 histedit =
 pager =
 progress =
+prompt = ~/dotfiles/hg-prompt/prompt.py
+purge =
 
 [alias]
 l = log -G --pager always --color always --template '\033[0;31m{node|short} \033[0;34m({author|person}) - \033[0;33m{tags} {bookmarks} {branches} \033[0m{desc|firstline|strip} \033[0;32m({date|age})\033[0m\n'
 st = !hg __mystatus $($HG root) $HG_ARGS
+b = branch
+d = diff
 
 [pager]
 pager = LESS='FRX' less
