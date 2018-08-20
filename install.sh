@@ -3,7 +3,7 @@
 
 dir=~/dotfiles # dotfiles directory
 olddir=~/dotfiles_old # old dotfiles backup directory
-files="gitconfig hgrc vimrc zshrc config" # list of files/folders to symlink in homedir
+files="gitconfig hgrc vimrc" # list of files/folders to symlink in homedir
 
 # create dotfiles_old in homedir
 echo -n "Creating $olddir to backup existing dotfiles first"

@@ -1,7 +1,7 @@
 dotfiles
 ========
 
-Sets up my configs.
+Sets up my configs. Backs up any existing dotfiles into another directory
 
 Set Up
 ========
